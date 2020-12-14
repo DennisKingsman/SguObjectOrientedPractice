@@ -1,5 +1,10 @@
 package com.sgu.bean;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "creditType")
 public class CreditType {
 
     private String name;
@@ -21,6 +26,7 @@ public class CreditType {
         return name;
     }
 
+    @XmlAttribute(name = "creditTypeName")
     public void setName(String name) {
         this.name = name;
     }
@@ -29,6 +35,7 @@ public class CreditType {
         return conditions;
     }
 
+    @XmlElement
     public void setConditions(String conditions) {
         this.conditions = conditions;
     }
@@ -37,6 +44,7 @@ public class CreditType {
         return interestRate;
     }
 
+    @XmlElement
     public void setInterestRate(byte interestRate) {
         this.interestRate = interestRate;
     }
@@ -45,8 +53,18 @@ public class CreditType {
         return repaymentPeriodMonth;
     }
 
+    @XmlElement
     public void setRepaymentPeriodMonth(int repaymentPeriodMonth) {
         this.repaymentPeriodMonth = repaymentPeriodMonth;
+    }
+
+    @Override
+    public String toString() {
+        return "CreditType{" + "name='" + name + '\'' +
+                ", conditions='" + conditions + '\'' +
+                ", interestRate='" + interestRate + '\'' +
+                ", repaymentPeriodMonth='" + repaymentPeriodMonth + '\'' +
+                '}';
     }
 
 }
