@@ -1,5 +1,10 @@
 package com.sgu.bean;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "client")
 public class Client {
 
     private String name;
@@ -23,6 +28,7 @@ public class Client {
         return name;
     }
 
+    @XmlAttribute(name = "clientName")
     public void setName(String name) {
         this.name = name;
     }
@@ -31,6 +37,7 @@ public class Client {
         return propertyType;
     }
 
+    @XmlElement
     public void setPropertyType(String propertyType) {
         this.propertyType = propertyType;
     }
@@ -39,6 +46,7 @@ public class Client {
         return address;
     }
 
+    @XmlElement
     public void setAddress(String address) {
         this.address = address;
     }
@@ -47,6 +55,7 @@ public class Client {
         return phoneNumber;
     }
 
+    @XmlElement
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
@@ -55,8 +64,19 @@ public class Client {
         return contactPerson;
     }
 
+    @XmlElement
     public void setContactPerson(String contactPerson) {
         this.contactPerson = contactPerson;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" + "name='" + name + '\'' +
+                ", propertyType='" + propertyType + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", contactPerson='" + contactPerson + '\'' +
+                '}';
     }
 
 }

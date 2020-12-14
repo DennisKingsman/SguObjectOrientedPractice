@@ -1,8 +1,14 @@
 package com.sgu.bean;
 
+import com.sgu.utils.LocalDateAdapter;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@XmlRootElement(name = "credit")
 public class Credit {
 
     private CreditType creditType;
@@ -30,6 +36,7 @@ public class Credit {
         return creditType;
     }
 
+    @XmlElement(name = "creditType")
     public void setCreditType(CreditType creditType) {
         this.creditType = creditType;
     }
@@ -38,6 +45,7 @@ public class Credit {
         return client;
     }
 
+    @XmlElement(name = "client")
     public void setClient(Client client) {
         this.client = client;
     }
@@ -46,6 +54,7 @@ public class Credit {
         return totalDebt;
     }
 
+    @XmlElement
     public void setTotalDebt(BigDecimal totalDebt) {
         this.totalDebt = totalDebt;
     }
@@ -54,6 +63,7 @@ public class Credit {
         return currentDebt;
     }
 
+    @XmlElement
     public void setCurrentDebt(BigDecimal currentDebt) {
         this.currentDebt = currentDebt;
     }
@@ -62,6 +72,7 @@ public class Credit {
         return totalFine;
     }
 
+    @XmlElement
     public void setTotalFine(BigDecimal totalFine) {
         this.totalFine = totalFine;
     }
@@ -70,6 +81,8 @@ public class Credit {
         return openDate;
     }
 
+    @XmlElement
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     public void setOpenDate(LocalDate openDate) {
         this.openDate = openDate;
     }
@@ -78,8 +91,22 @@ public class Credit {
         return closeDate;
     }
 
+    @XmlElement
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     public void setCloseDate(LocalDate closeDate) {
         this.closeDate = closeDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Credit{" + "client='" + client + '\'' +
+                ", creditType='" + creditType + '\'' +
+                ", totalDebt='" + totalDebt + '\'' +
+                ", currentDebt='" + currentDebt + '\'' +
+                ", totalFine='" + totalFine + '\'' +
+                ", openDate='" + openDate + '\'' +
+                ", closeDate='" + closeDate + '\'' +
+                '}';
     }
 
 }

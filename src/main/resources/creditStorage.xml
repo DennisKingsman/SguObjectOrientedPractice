@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<com.sgu>
+    <credits>
+        <credit>
+            <client clientName="company 0">
+                <address>address 0</address>
+                <contactPerson>name 0</contactPerson>
+                <phoneNumber>some number</phoneNumber>
+                <propertyType>state</propertyType>
+            </client>
+            <creditType creditTypeName="consumer">
+                <conditions>have a job</conditions>
+                <interestRate>22</interestRate>
+                <repaymentPeriodMonth>4</repaymentPeriodMonth>
+            </creditType>
+            <currentDebt>10666.45</currentDebt>
+            <openDate>2020-12-14</openDate>
+            <totalDebt>10666.45</totalDebt>
+            <totalFine>0</totalFine>
+        </credit>
+        <credit>
+            <client clientName="company 1">
+                <address>address 1</address>
+                <contactPerson>name 1</contactPerson>
+                <phoneNumber>some number</phoneNumber>
+                <propertyType>private</propertyType>
+            </client>
+            <creditType creditTypeName="mortgage">
+                <conditions>be stupid</conditions>
+                <interestRate>12</interestRate>
+                <repaymentPeriodMonth>10</repaymentPeriodMonth>
+            </creditType>
+            <currentDebt>10665450.00</currentDebt>
+            <openDate>2020-12-14</openDate>
+            <totalDebt>10666450.00</totalDebt>
+            <totalFine>0</totalFine>
+        </credit>
+        <credit>
+            <client clientName="company 2">
+                <address>address 2</address>
+                <contactPerson>name 2</contactPerson>
+                <phoneNumber>some number</phoneNumber>
+                <propertyType>state</propertyType>
+            </client>
+            <creditType creditTypeName="consumer">
+                <conditions>have a job</conditions>
+                <interestRate>22</interestRate>
+                <repaymentPeriodMonth>4</repaymentPeriodMonth>
+            </creditType>
+            <currentDebt>10466.45</currentDebt>
+            <openDate>2020-12-14</openDate>
+            <totalDebt>10666.45</totalDebt>
+            <totalFine>0</totalFine>
+        </credit>
+        <credit>
+            <client clientName="company 3">
+                <address>address 3</address>
+                <contactPerson>name 3</contactPerson>
+                <phoneNumber>some number</phoneNumber>
+                <propertyType>private</propertyType>
+            </client>
+            <creditType creditTypeName="mortgage">
+                <conditions>be stupid</conditions>
+                <interestRate>12</interestRate>
+                <repaymentPeriodMonth>10</repaymentPeriodMonth>
+            </creditType>
+            <currentDebt>10663450.00</currentDebt>
+            <openDate>2020-12-14</openDate>
+            <totalDebt>10666450.00</totalDebt>
+            <totalFine>0</totalFine>
+        </credit>
+        <credit>
+            <client clientName="company 4">
+                <address>address 4</address>
+                <contactPerson>name 4</contactPerson>
+                <phoneNumber>some number</phoneNumber>
+                <propertyType>state</propertyType>
+            </client>
+            <creditType creditTypeName="consumer">
+                <conditions>have a job</conditions>
+                <interestRate>22</interestRate>
+                <repaymentPeriodMonth>4</repaymentPeriodMonth>
+            </creditType>
+            <currentDebt>10266.45</currentDebt>
+            <openDate>2020-12-14</openDate>
+            <totalDebt>10666.45</totalDebt>
+            <totalFine>0</totalFine>
+        </credit>
+    </credits>
+</com.sgu>
