@@ -1,7 +1,9 @@
-package com.sgu;
+package com.sgu.executer.main.task.two;
 
+import com.sgu.bean.Client;
 import com.sgu.bean.Credit;
 import com.sgu.bean.CreditStorage;
+import com.sgu.dao.CrudDao;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -17,15 +19,20 @@ import java.util.List;
 
 import static com.sgu.utils.BeansUtils.initCreditStorage;
 
-public class Main {
+public class MainTaskTwo {
 
     private static final String CREDIT_STORAGE_XML = "src/main/resources/creditStorage.xml";
+    private static CrudDao<Client> clientDao;
 
     public static void main(String[] args) {
-//        CreditStorage creditStorage = initCreditStorage();
-//        serializeToFile(creditStorage);
+        //xml serialize
+        CreditStorage creditStorage = initCreditStorage();
+        serializeToFile(creditStorage);
+
+        //xml deserialize
         List<Credit> credits = deserializeFromFile();
         credits.forEach(System.out::println);
+
     }
 
     private static void serializeToFile(CreditStorage creditStorage) {
@@ -40,7 +47,7 @@ public class Main {
         }
     }
 
-    private static List<Credit> deserializeFromFile(){
+    private static List<Credit> deserializeFromFile() {
         try {
             JAXBContext context = JAXBContext.newInstance(CreditStorage.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
