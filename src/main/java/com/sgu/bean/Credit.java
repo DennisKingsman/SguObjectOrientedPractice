@@ -19,6 +19,9 @@ public class Credit {
     private LocalDate openDate;
     private LocalDate closeDate;
 
+    private String responsibleClientName;
+    private String creditTypeName;
+
     public Credit() {
     }
 
@@ -30,6 +33,20 @@ public class Credit {
         this.totalFine = totalFine;
         this.openDate = openDate;
         this.closeDate = closeDate;
+    }
+
+    public Credit(CreditType creditType, Client client,
+                  BigDecimal totalDebt, BigDecimal currentDebt, BigDecimal totalFine, LocalDate openDate, LocalDate closeDate,
+                  String responsibleClientName, String creditTypeName) {
+        this.creditType = creditType;
+        this.client = client;
+        this.totalDebt = totalDebt;
+        this.currentDebt = currentDebt;
+        this.totalFine = totalFine;
+        this.openDate = openDate;
+        this.closeDate = closeDate;
+        this.responsibleClientName = responsibleClientName;
+        this.creditTypeName = creditTypeName;
     }
 
     public CreditType getCreditType() {
@@ -95,6 +112,24 @@ public class Credit {
     @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     public void setCloseDate(LocalDate closeDate) {
         this.closeDate = closeDate;
+    }
+
+    public String getResponsibleClientName() {
+        return responsibleClientName;
+    }
+
+    @XmlElement
+    public void setResponsibleClientName(String responsibleClientName) {
+        this.responsibleClientName = responsibleClientName;
+    }
+
+    public String getCreditTypeName() {
+        return creditTypeName;
+    }
+
+    @XmlElement
+    public void setCreditTypeName(String creditTypeName) {
+        this.creditTypeName = creditTypeName;
     }
 
     @Override
