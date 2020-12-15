@@ -4,8 +4,6 @@ import com.sgu.bean.Client;
 import com.sgu.bean.Credit;
 import com.sgu.bean.CreditStorage;
 import com.sgu.dao.CrudDao;
-import com.sgu.dao.implementation.ClientDaoImp;
-import com.sgu.dao.implementation.ConnectionBuilderImpl;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -49,7 +47,7 @@ public class MainTaskTwo {
         }
     }
 
-    private static List<Credit> deserializeFromFile(){
+    private static List<Credit> deserializeFromFile() {
         try {
             JAXBContext context = JAXBContext.newInstance(CreditStorage.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();

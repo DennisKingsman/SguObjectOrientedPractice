@@ -28,7 +28,7 @@ public class CreditDaoImpl implements CrudDependentDao<Credit> {
 
     private ConnectionBuilder connectionBuilder;
 
-    public void setConnectionBuilder(ConnectionBuilder connectionBuilder){
+    public void setConnectionBuilder(ConnectionBuilder connectionBuilder) {
         this.connectionBuilder = connectionBuilder;
     }
 
@@ -37,9 +37,9 @@ public class CreditDaoImpl implements CrudDependentDao<Credit> {
     }
 
     /**
-     * @see CreditDaoImpl use getByForeignKey method
      * @param name not valid
      * @return NULL
+     * @see CreditDaoImpl use getByForeignKey method
      */
     @Override
     public Credit getByName(String name) {
@@ -49,14 +49,14 @@ public class CreditDaoImpl implements CrudDependentDao<Credit> {
     @Override
     public List<Credit> getAll() {
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL)){
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 List<Credit> credits = new ArrayList<>();
                 do {
                     Credit credit = getFromResultSet(resultSet);
                     credits.add(credit);
-                }while (resultSet.next());
+                } while (resultSet.next());
                 return credits;
             }
         } catch (SQLException e) {
@@ -67,25 +67,26 @@ public class CreditDaoImpl implements CrudDependentDao<Credit> {
 
     /**
      * u can use method with one param
-     * @param clientName required
+     *
+     * @param clientName     required
      * @param creditTypeName not required
      * @return updated row count
      */
-    public int setCloseDate(String clientName, String creditTypeName){
+    public int setCloseDate(String clientName, String creditTypeName) {
         String stmt;
         boolean nullable = creditTypeName == null;
-        if(nullable){
+        if (nullable) {
             stmt = UPDATE_SET_CLOSE_DATE_WITH_ONE_PARAM;
-        }else {
+        } else {
             stmt = UPDATE_SET_CLOSE_DATE;
         }
         try (Connection connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(stmt)){
+             PreparedStatement preparedStatement = connection.prepareStatement(stmt)) {
             Date closeDate = Date.valueOf(LocalDate.now());
             int counter = 1;
             preparedStatement.setDate(counter++, closeDate);
             preparedStatement.setString(counter++, clientName);
-            if(!nullable) {
+            if (!nullable) {
                 preparedStatement.setString(counter, creditTypeName);
             }
             return preparedStatement.executeUpdate();
@@ -95,7 +96,7 @@ public class CreditDaoImpl implements CrudDependentDao<Credit> {
         return 0;
     }
 
-    private Credit getFromResultSet(ResultSet resultSet){
+    private Credit getFromResultSet(ResultSet resultSet) {
         try {
             Credit credit = new Credit();
             credit.setResponsibleClientName(resultSet.getString("credit_type_name"));
@@ -105,8 +106,13 @@ public class CreditDaoImpl implements CrudDependentDao<Credit> {
             credit.setTotalFine(resultSet.getBigDecimal("total_fine"));
             Date openDate = resultSet.getDate("open_date");
             credit.setOpenDate(openDate.toLocalDate());
+
             Date closeDate = resultSet.getDate("close_date");
-            credit.setCloseDate(closeDate.toLocalDate());
+            if(closeDate == null){
+                credit.setCloseDate(null);
+            }else {
+                credit.setCloseDate(closeDate.toLocalDate());
+            }
             return credit;
         } catch (SQLException e) {
             System.out.println("Error in getFromResultSet method");
@@ -117,30 +123,31 @@ public class CreditDaoImpl implements CrudDependentDao<Credit> {
     /**
      * Credit has two foreign keys to query of
      * use fake object one of them to validate method
-     * @param key key name
+     *
+     * @param key    key name
      * @param object input new Client or new CreditType to validate queries
      * @return credits by foreign key
      */
     @Override
     public List<Credit> getByForeignKey(String key, Object object) {
         String stmt;
-        if(object.getClass() == Client.class){
+        if (object.getClass() == Client.class) {
             stmt = GET_BY_CLIENT_NAME;
-        }else if(object.getClass() == CreditType.class){
+        } else if (object.getClass() == CreditType.class) {
             stmt = GET_BY_CREDIT_TYPE_NAME;
-        }else {
+        } else {
             return new ArrayList<>();
         }
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(stmt)){
+             PreparedStatement preparedStatement = connection.prepareStatement(stmt)) {
             preparedStatement.setString(1, key);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 List<Credit> credits = new ArrayList<>();
                 do {
                     Credit credit = getFromResultSet(resultSet);
                     credits.add(credit);
-                }while (resultSet.next());
+                } while (resultSet.next());
                 return credits;
             }
         } catch (SQLException e) {
@@ -152,14 +159,14 @@ public class CreditDaoImpl implements CrudDependentDao<Credit> {
     @Override
     public int createDependentBean(Credit bean, String responsibleClientName, String creditTypeName) {
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(CREATE)){
+             PreparedStatement preparedStatement = connection.prepareStatement(CREATE)) {
             int counter = 1;
             preparedStatement.setString(counter++, creditTypeName);
             preparedStatement.setString(counter++, responsibleClientName);
             preparedStatement.setBigDecimal(counter++, bean.getTotalDebt());
             preparedStatement.setBigDecimal(counter++, bean.getCurrentDebt());
             Date openDate = Date.valueOf(LocalDate.now());
-            preparedStatement.setDate(counter,openDate);
+            preparedStatement.setDate(counter, openDate);
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -170,7 +177,7 @@ public class CreditDaoImpl implements CrudDependentDao<Credit> {
     @Override
     public int deleteByName(String clientName) {
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_NAME)){
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_NAME)) {
             preparedStatement.setString(1, clientName);
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {

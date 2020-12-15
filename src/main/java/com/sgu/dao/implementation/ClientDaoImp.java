@@ -21,7 +21,7 @@ public class ClientDaoImp implements CrudDao<Client> {
 
     private ConnectionBuilder connectionBuilder;
 
-    public void setConnectionBuilder(ConnectionBuilder connectionBuilder){
+    public void setConnectionBuilder(ConnectionBuilder connectionBuilder) {
         this.connectionBuilder = connectionBuilder;
     }
 
@@ -32,10 +32,10 @@ public class ClientDaoImp implements CrudDao<Client> {
     @Override
     public Client getByName(String name) {
         try (Connection connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_NAME)){
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_NAME)) {
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 Client client = new Client();
                 client.setName(resultSet.getString("name"));
                 client.setPropertyType("property_type");
@@ -44,7 +44,7 @@ public class ClientDaoImp implements CrudDao<Client> {
                 client.setContactPerson("contact_person");
                 return client;
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return new Client();
@@ -53,9 +53,9 @@ public class ClientDaoImp implements CrudDao<Client> {
     @Override
     public List<Client> getAll() {
         try (Connection connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL)){
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 List<Client> clients = new ArrayList<>();
                 do {
                     Client client = new Client();
@@ -65,9 +65,9 @@ public class ClientDaoImp implements CrudDao<Client> {
                     client.setPhoneNumber("phone_number");
                     client.setContactPerson("contact_person");
                     clients.add(client);
-                }while (resultSet.next());
+                } while (resultSet.next());
                 return clients;
-            }else {
+            } else {
                 System.out.println("SQL query error");
             }
         } catch (SQLException e) {
@@ -79,7 +79,7 @@ public class ClientDaoImp implements CrudDao<Client> {
     @Override
     public int create(Client bean) {
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(CREATE)){
+             PreparedStatement preparedStatement = connection.prepareStatement(CREATE)) {
             int counter = 1;
             preparedStatement.setString(counter++, bean.getName());
             preparedStatement.setString(counter++, bean.getPropertyType());
@@ -96,10 +96,10 @@ public class ClientDaoImp implements CrudDao<Client> {
     @Override
     public int deleteByName(String name) {
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_NAME)){
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_NAME)) {
             preparedStatement.setString(1, name);
             return preparedStatement.executeUpdate();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return 0;

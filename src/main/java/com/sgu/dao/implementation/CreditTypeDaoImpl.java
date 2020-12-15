@@ -21,7 +21,7 @@ public class CreditTypeDaoImpl implements CrudDao<CreditType> {
 
     private ConnectionBuilder connectionBuilder;
 
-    public void setConnectionBuilder(ConnectionBuilder connectionBuilder){
+    public void setConnectionBuilder(ConnectionBuilder connectionBuilder) {
         this.connectionBuilder = connectionBuilder;
     }
 
@@ -32,10 +32,10 @@ public class CreditTypeDaoImpl implements CrudDao<CreditType> {
     @Override
     public CreditType getByName(String name) {
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_NAME)){
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_NAME)) {
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 CreditType creditType = new CreditType();
                 creditType.setName(resultSet.getString("name"));
                 creditType.setConditions(resultSet.getString("conditions"));
@@ -43,7 +43,7 @@ public class CreditTypeDaoImpl implements CrudDao<CreditType> {
                 creditType.setRepaymentPeriodMonth(resultSet.getInt("repayment_period_month"));
                 return creditType;
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return new CreditType();
@@ -52,21 +52,21 @@ public class CreditTypeDaoImpl implements CrudDao<CreditType> {
     @Override
     public List<CreditType> getAll() {
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL)){
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 List<CreditType> creditTypes = new ArrayList<>();
-                do{
+                do {
                     CreditType creditType = new CreditType();
                     creditType.setName(resultSet.getString("name"));
                     creditType.setConditions(resultSet.getString("conditions"));
                     creditType.setInterestRate(resultSet.getByte("interest_rate"));
                     creditType.setRepaymentPeriodMonth(resultSet.getInt("repayment_period_month"));
                     creditTypes.add(creditType);
-                }while (resultSet.next());
+                } while (resultSet.next());
                 return creditTypes;
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return new ArrayList<>();
@@ -75,14 +75,14 @@ public class CreditTypeDaoImpl implements CrudDao<CreditType> {
     @Override
     public int create(CreditType bean) {
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(CREATE)){
+             PreparedStatement preparedStatement = connection.prepareStatement(CREATE)) {
             int counter = 1;
             preparedStatement.setString(counter++, bean.getName());
             preparedStatement.setString(counter++, bean.getConditions());
             preparedStatement.setInt(counter++, bean.getInterestRate());
             preparedStatement.setInt(counter, bean.getRepaymentPeriodMonth());
             return preparedStatement.executeUpdate();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return 0;
@@ -91,10 +91,10 @@ public class CreditTypeDaoImpl implements CrudDao<CreditType> {
     @Override
     public int deleteByName(String name) {
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_NAME)){
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_NAME)) {
             preparedStatement.setString(1, name);
             return preparedStatement.executeUpdate();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return 0;

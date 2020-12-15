@@ -10,7 +10,7 @@ public interface CrudDao<T> {
 
     int create(T bean);
 
-    default int delete(T bean){
+    default int delete(T bean) {
         return 0;
     }
 
